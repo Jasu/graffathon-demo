@@ -1,18 +1,17 @@
- class Puu implements Effect {
-  float r = height/12;  
+ class Puu { 
   float leftr = 0.85;
   float rightr = 0.95; 
   void setup() {
   }
 
-  void draw(float secs) {
-    float x = width/2;
-    float y = 0-(r/2); 
+  void draw(float secs, float x, float y, float r) {
+    strokeWeight(6);
+    
+    resetMatrix();
 
-    background(0);
     
     stroke(0, 255, 0);
-    
+    line(x,height,x,height-y); //varrenpidennys
     tree(x, y, r, 0, secs, 0.5);
 
   }
@@ -20,7 +19,8 @@
     if (end > 9 || r <= 0){ 
       return; 
     }
-    float asdf = sin(secs)/2;
+    strokeWeight(6 - end/1.8);
+    float asdf = sin(secs)/20;
     //vasen
     float x2 = x + (r * cos(PI/4 + ((PI/2)*ang)));
     float y2 = y + (r * sin(PI/4 + ((PI/2)*ang)));

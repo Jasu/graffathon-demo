@@ -6,6 +6,7 @@
   }
 
   void draw(float secs) {
+    strokeWeight(1);
     float x = width/2;
     float y = height/2; 
 
