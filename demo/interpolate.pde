@@ -1,39 +1,3 @@
-class Mesh {
-  public float x[], y[];
-  int curCoord;
-
-  Mesh (int size) {
-    this.x = new float[size];
-    this.y = new float[size];
-    curCoord = 0;
-  }
-
-  Mesh v(float x, float y) {
-    this.x[curCoord] = x;
-    this.y[curCoord] = y;
-    curCoord++;
-    return this;
-  }
-
-  void renderWithImage(PImage image) {
-    float uFactor = image.width * 0.5;
-    float vFactor = image.height * 0.5;
-    noStroke();
-    noFill();
-    beginShape();
-    texture(image);
-    for (int i = 0; i < x.length; ++i) {
-      vertex(
-        x[i],
-        y[i],
-        (1 + x[i]) * uFactor,
-        (1 + y[i]) * vFactor);
-    }
-    endShape();
-  }
-}
-
-
 float cardinal(float prev, float cur, float next, float nextnext, float t, float c) {
   float t2 = t * t;
   float t3 = t * t2;
