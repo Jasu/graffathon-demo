@@ -1,298 +1,14 @@
-float defaultFishX[] = {
-  1, //Lower lip
-  0.96, //Mouth
-  1, //Upper lip
-  0.6,
-
-  0.2, //Upper fin begin
-  0, //Upper fin top
-  -0.3, //Upper fin top
-  -0.3, //Upper fin  end
-
-  -0.3, //Tail begin
-  -0.35, //Tail upper
-  -0.4, //Tail middle
-  -0.35, //Tail lower
-  -0.3, //Tail end
-
-  -0.3, //Lower fin begin
-  -0.3, //Lower fin bottom
-  0.2, //Lower end 
-
-  0.6,
-};
-
-float defaultFishY[] = {
-  0.1, //Lower lip
-  0, //Mouth
-  -0.1, //Upper lip
-  -0.28,
-
-  -0.3, //Upper fin begin
-  -0.35, //Upper fin top
-  -0.5, //Upper fin top
-  -0.15, //Upper fin  end
-
-  -0.2, //Tail begin
-  -0.17, //Tail upper
-  -0, //Tail middle
-
-  0.17, //Tail lower
-  0.2, //Tail end
-
-  0.15, //Lower fin begin
-  0.5, //Lower fin bottom
-  0.3, //Lower end 
-
-  0.28,
-};
-
-float upperFinFishX[] = {
-  0, //Lower lip
-  0, //Mouth
-  0, //Upper lip
-  0,
-
-  0, //Upper fin begin
-  -0.05, //Upper fin top
-  -0.03, //Upper fin top
-  0, //Upper fin  end
-
-  0, //Tail begin
-  0, //Tail upper
-  0, //Tail middle
-  0, //Tail lower
-  0, //Tail end
-
-  0, //Lower fin begin
-  0, //Lower fin bottom
-  0, //Lower end 
-
-  0,
-};
-
-float upperFinFishY[] = {
-  0, //Lower lip
-  0, //Mouth
-  0, //Upper lip
-  0,
-
-  0, //Upper fin begin
-  -0.4, //Upper fin top
-  -0.5, //Upper fin top
-  0, //Upper fin  end
-
-  0, //Tail begin
-  0, //Tail upper
-  0, //Tail middle
-  0, //Tail lower
-  0, //Tail end
-
-  0, //Lower fin begin
-  0, //Lower fin bottom
-  0, //Lower end 
-
-  0,
-};
-
-float lowerFinFishX[] = {
-  0, //Lower lip
-  0, //Mouth
-  0, //Upper lip
-  0,
-
-  0, //Upper fin begin
-  0, //Upper fin top
-  0, //Upper fin top
-  0, //Upper fin  end
-
-  0, //Tail begin
-  0, //Tail upper
-  0, //Tail middle
-  0, //Tail lower
-  0, //Tail end
-
-  0, //Lower fin begin
-  -0.05, //Lower fin bottom
-  0, //Lower end 
-
-  0,
-};
-
-float lowerFinFishY[] = {
-  0, //Lower lip
-  0, //Mouth
-  0, //Upper lip
-  0,
-
-  0, //Upper fin begin
-  0, //Upper fin top
-  0, //Upper fin top
-  0, //Upper fin  end
-
-  0, //Tail begin
-  0, //Tail upper
-  0, //Tail middle
-  0, //Tail lower
-  0, //Tail end
-
-  0, //Lower fin begin
-  0.5, //Lower fin bottom
-  0, //Lower end 
-
-  0,
-};
-
-float tailLengthFishX[] = {
-  0, //Lower lip
-  0, //Mouth
-  0, //Upper lip
-  0,
-
-  0, //Upper fin begin
-  0, //Upper fin top
-  0, //Upper fin top
-  0, //Upper fin  end
-
-  -0.25, //Tail begin
-  -0.65, //Tail upper
-  -0.25, //Tail middle
-  -0.65, //Tail lower
-  -0.25, //Tail end
-
-  0, //Lower fin begin
-  0, //Lower fin bottom
-  0, //Lower end 
-
-  0,
-};
-
-float tailLengthFishY[] = {
-  0, //Lower lip
-  0, //Mouth
-  0, //Upper lip
-  0,
-
-  0, //Upper fin begin
-  0, //Upper fin top
-  0, //Upper fin top
-  0, //Upper fin  end
-
-  0, //Tail begin
-  0, //Tail upper
-  0, //Tail middle
-  0, //Tail lower
-  0, //Tail end
-
-  0, //Lower fin begin
-  0, //Lower fin bottom
-  0, //Lower end 
-
-  0,
-};
-
-float tailExpandFishX[] = {
-  0, //Lower lip
-  0, //Mouth
-  0, //Upper lip
-  0,
-
-  0, //Upper fin begin
-  0, //Upper fin top
-  0, //Upper fin top
-  0, //Upper fin  end
-
-  0, //Tail begin
-  0, //Tail upper
-  0, //Tail middle
-  0, //Tail lower
-  0, //Tail end
-
-  0, //Lower fin begin
-  0, //Lower fin bottom
-  0, //Lower end 
-
-  0,
-};
-
-float tailExpandFishY[] = {
-  0, //Lower lip
-  0, //Mouth
-  0, //Upper lip
-  0,
-
-  0, //Upper fin begin
-  0, //Upper fin top
-  0, //Upper fin top
-  0, //Upper fin  end
-
-  0, //Tail begin
-  -0.35, //Tail upper
-  0, //Tail middle
-  0.35, //Tail lower
-  0, //Tail end
-
-  0, //Lower fin begin
-  0, //Lower fin bottom
-  0, //Lower end 
-
-  0,
-};
-
-float mouthOpenFishX[] = {
-  0, //Lower lip
-  -0.2, //Mouth
-  0, //Upper lip
-  0,
-
-  0, //Upper fin begin
-  0, //Upper fin top
-  0, //Upper fin top
-  0, //Upper fin  end
-
-  0, //Tail begin
-  0, //Tail upper
-  0, //Tail middle
-  0, //Tail lower
-  0, //Tail end
-
-  0, //Lower fin begin
-  0, //Lower fin bottom
-  0, //Lower end 
-
-  0,
-};
-
-float mouthOpenFishY[] = {
-  0.05, //Lower lip
-  0, //Mouth
-  -0.05, //Upper lip
-  0,
-
-  0, //Upper fin begin
-  0, //Upper fin top
-  0, //Upper fin top
-  0, //Upper fin  end
-
-  0, //Tail begin
-  0, //Tail upper
-  0, //Tail middle
-  0, //Tail lower
-  0, //Tail end
-
-  0, //Lower fin begin
-  0, //Lower fin bottom
-  0, //Lower end 
-
-  0,
-};
+Mesh fishDefault;
+Mesh fishUpperFin;
+Mesh fishLowerFin;
+Mesh fishTail;
+Mesh fishMouth;
 
 class Fish {
-  public float upperFin;
-  public float lowerFin;
-  public float tailLength;
-  public float tailExpand;
-  public float mouthOpen;
+  MeshSet meshSet;
+  public float fins;
+  public float tail;
+  public float mouth;
   public PImage texture;
   public Color fillColor;
   public Color strokeColor;
@@ -313,45 +29,52 @@ class Fish {
     speedX *= 1 - 2.995 * secdiff;
     speedY *= 1 - 2.995 * secdiff;
 
-    mouthOpen = sin(sec * 3 + phase) * 0.5 + 0.5;
+    meshSet.parameters[4] = sin(sec * 3 + phase) * 0.5 + 0.5;
 
-    upperFin *= 1.0 - 0.95*secdiff;
-    lowerFin *= 1.0  - 0.95*secdiff;
-    tailExpand *= 1 - 0.85*secdiff;
-    tailLength *= 1 - 0.85*secdiff;
+    meshSet.parameters[1] *= 1.0 - 0.95*secdiff;
+    meshSet.parameters[2] *= 1.0 - 0.95*secdiff;
+    meshSet.parameters[3] *= 1.0 - 0.85*secdiff;
   }
 
   public void pulse() {
-    upperFin = 1;
-    lowerFin = 1;
-    tailLength = 1;
-    tailExpand = 1;
+    meshSet.parameters[1] = 1;
+    meshSet.parameters[2] = 1;
+    meshSet.parameters[3] = 1;
     speedX = initSpeedX;
     speedY = initSpeedY;
   }
 
   Fish() {
-    this.upperFin = 0;
-    this.lowerFin = 0;
-    this.tailLength = 0;
-    this.tailExpand = 0;
-    this.mouthOpen = 0;
+    meshSet = new MeshSet(5, 50);
+    meshSet.setMesh(0, fishDefault, 0);
+    meshSet.setMesh(1, fishUpperFin, 0);
+    meshSet.setMesh(2, fishLowerFin, 0);
+    meshSet.setMesh(3, fishTail, 0);
+    meshSet.setMesh(4, fishMouth, 0);
+
+    meshSet.parameters[0] = 1;
+    meshSet.parameters[1] = 0;
+    meshSet.parameters[2] = 0;
+    meshSet.parameters[3] = 0;
+    meshSet.parameters[4] = 0;
   }
 
   void draw() {
-    float shapeX[] = defaultFishX;
-    float shapeY[] = defaultFishY;
-
     pushMatrix();
+
     translate(x, y);
     rotate(atan2(initSpeedX, initSpeedY));
 
+    Mesh m = meshSet.getMesh();
+    m.renderWithImage(texture);
+    
     //this.fillColor.setFill();
-    strokeWeight(0.07);
-    this.strokeColor.setStroke();
-    noStroke();
+    //strokeWeight(0.07);
+    //this.strokeColor.setStroke();
+    //noStroke();
 
 
+/*
     beginShape();
     texture(this.texture);
     float firstX = 0, firstY = 0, firstU = 0, firstV = 0;
@@ -392,6 +115,7 @@ class Fish {
 
     vertex(firstX, firstY, firstU, firstV);
     endShape();
+    */
 
     fill(0);
     ellipse(0.7, -0.1, 0.13, 0.13);
@@ -409,6 +133,106 @@ class Fishes implements Effect {
   int lastPulse;
 
   void setup() {
+    fishDefault = new Mesh(17);
+    fishUpperFin = new Mesh(17);
+    fishLowerFin = new Mesh(17);
+    fishTail = new Mesh(17);
+    fishMouth = new Mesh(17);
+    fishDefault
+      .v(1,    0.1)    //Lower lip
+      .v(0.96, 0)      //Mouth
+      .v(1,    -0.1)   //Upper lip
+      .v(0.6,  -0.28)
+      .v(0.2,  -0.3) // Upper fin begin
+      .v(0,    -0.35) // Upper fin top
+      .v(-0.3, -0.5) // Upper fin top
+      .v(-0.3, -0.15) // Upper fin end
+      .v(-0.3, -0.2) // Tail begin
+      .v(-0.35, -0.17) // Tail upper
+      .v(-0.4,  0) // Tail middle
+      .v(-0.35,  0.17) // Tail middle
+      .v(-0.3,  0.2) // Tail end
+      .v(-0.3,  0.15) // Lower fin begin
+      .v(-0.3,  0.5) // Lower fin bottom
+      .v(0.2,  0.3) // Lower fin end
+      .v(0.6,  0.28); // Lower fin end
+
+    fishUpperFin
+      .v(0, 0)
+      .v(0, 0)
+      .v(0, 0)
+      .v(0, 0)
+      .v(0, 0)
+      .v(-0.05, -0.4)
+      .v(-0.03, -0.5)
+      .v(0, 0)
+      .v(0, 0)
+      .v(0, 0)
+      .v(0, 0)
+      .v(0, 0)
+      .v(0, 0)
+      .v(0, 0)
+      .v(0, 0)
+      .v(0, 0)
+      .v(0, 0);
+
+    fishLowerFin
+      .v(0, 0)
+      .v(0, 0)
+      .v(0, 0)
+      .v(0, 0)
+      .v(0, 0)
+      .v(0, 0)
+      .v(0, 0)
+      .v(0, 0)
+      .v(0, 0)
+      .v(0, 0)
+      .v(0, 0)
+      .v(0, 0)
+      .v(0, 0)
+      .v(0, 0)
+      .v(-0.05, 0.5)
+      .v(0, 0)
+      .v(0, 0);
+
+    fishTail
+      .v(0, 0)
+      .v(0, 0)
+      .v(0, 0)
+      .v(0, 0)
+      .v(0, 0)
+      .v(0, 0)
+      .v(0, 0)
+      .v(0, 0)
+      .v(-0.25, 0)
+      .v(-0.65, -0.35)
+      .v(-0.25, 0)
+      .v(-0.65, 0.35)
+      .v(-0.25, 0)
+      .v(0, 0)
+      .v(0, 0)
+      .v(0, 0)
+      .v(0, 0);
+
+    fishMouth
+      .v(0, 0.05)
+      .v(-0.2, 0)
+      .v(0, -0.05)
+      .v(0, 0)
+      .v(0, 0)
+      .v(0, 0)
+      .v(0, 0)
+      .v(0, 0)
+      .v(0, 0)
+      .v(0, 0)
+      .v(0, 0)
+      .v(0, 0)
+      .v(0, 0)
+      .v(0, 0)
+      .v(0, 0)
+      .v(0, 0)
+      .v(0, 0);
+
     lastPulse = 0;
     f = new Fish();
     f.phase = 1;

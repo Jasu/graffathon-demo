@@ -1,0 +1,98 @@
+class Mesh {
+  public float x[], y[];
+  int curCoord;
+
+  Mesh (int size) {
+    this.x = new float[size];
+    this.y = new float[size];
+    curCoord = 0;
+  }
+
+  Mesh v(float x, float y) {
+    this.x[curCoord] = x;
+    this.y[curCoord] = y;
+    curCoord++;
+    return this;
+  }
+
+  void renderWithImage(PImage image) {
+    float uFactor = image.width * 0.5;
+    float vFactor = image.height * 0.5;
+    noStroke();
+    noFill();
+    beginShape();
+    texture(image);
+    for (int i = 0; i < x.length; ++i) {
+      vertex(
+        x[i],
+        y[i],
+        (1 + x[i]) * uFactor,
+        (1 + y[i]) * vFactor);
+    }
+    endShape();
+  }
+}
+
+
+float cardinal(float prev, float cur, float next, float nextnext, float t, float c) {
+  float t2 = t * t;
+  float t3 = t * t2;
+  float result = 0;
+
+  float m0 = (next - prev)  * (1.0 - c) / 2.0;
+  float m1 = (nextnext - cur)  * (1.0 - c) / 2.0;
+
+  println("Cur " + cur + " m0 " + m0 + " next" + next + " m1 " + m1);
+
+  result += (2*t3 - 3*t2 + 1) * cur;
+  result += (t3 - 2*t2 + t) * m0;
+  result += (-2 * t3 + 3*t2) * next;
+  result += (t3 - t2) * m1;
+
+  return result;
+}
+
+Mesh interpolate(Mesh input, int num, float c) {
+  Mesh result = new Mesh(num);
+
+  float tDelta = (float)input.x.length / (float)num;
+  float t = 0;
+  int inputIndex = 0;
+
+  for (int i = 0; i < num; ++i) {
+    while (t > 1.0) {
+      t -= 1.0;
+      ++inputIndex;
+    }
+
+    int prevIndex = inputIndex - 1;
+    int nextIndex = inputIndex + 1;
+    int nextNextIndex = inputIndex + 2;
+
+    if (prevIndex < 0) prevIndex = input.x.length - 1;
+    if (nextIndex >= input.x.length) nextIndex -= input.x.length;
+    if (nextNextIndex >= input.x.length) nextNextIndex -= input.x.length;
+
+    result.x[i] = cardinal(
+      input.x[prevIndex],
+      input.x[inputIndex],
+      input.x[nextIndex],
+      input.x[nextNextIndex],
+      t,
+      c);
+
+    result.y[i] = cardinal(
+      input.y[prevIndex],
+      input.y[inputIndex],
+      input.y[nextIndex],
+      input.y[nextNextIndex],
+      t,
+      c);
+
+    println ("X " + result.x[i] + " Y " + result.y[i]);
+    t += tDelta;
+  }
+
+  return result;
+}
+
