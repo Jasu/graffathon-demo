@@ -16,8 +16,8 @@ import ddf.minim.effects.*;
 // These control how big the opened window is.
 // Before you release your demo, set these to 
 // full HD resolution (1920x1080).
-int CANVAS_WIDTH = 480;
-int CANVAS_HEIGHT = 360;
+int CANVAS_WIDTH = 800;
+int CANVAS_HEIGHT = 600;
 float ASPECT_RATIO = (float)CANVAS_WIDTH/CANVAS_HEIGHT;
 int currentEffect = 0;
 
@@ -44,8 +44,13 @@ void setup() {
   frameRate(60);
 
   effects = new Effect[2];
-  effects[0] = new Ellipse();
-  effects[1] = new Clear();
+  effects[0] = new Fishes();
+  effects[1] = new Background();
+  //effects[2] = new Clear();
+
+  for (Effect effect : effects) {
+    effect.setup();
+  }
 
   minim = new Minim(this);
   song = minim.loadFile("../processing/common/tekno_127bpm.mp3");
