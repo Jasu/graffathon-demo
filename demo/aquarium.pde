@@ -2,6 +2,7 @@ class Aquarium implements Effect {
   Background background;
   Fishes fishes;
   Puu puu;
+  Kuplat kuplat;
 
 
   public void setup() {
@@ -11,6 +12,8 @@ class Aquarium implements Effect {
     background.setup();
     fishes.setup();
     puu.setup();
+    kuplat = new Kuplat();
+    kuplat.setup();
   }
   public void draw(float secs) {
     background.draw(secs);
@@ -28,5 +31,7 @@ class Aquarium implements Effect {
     puu.draw(secs, x, y, r);    
 
     fishes.draw(secs);
+    
+    kuplat.draw(secs);
   }
 }
