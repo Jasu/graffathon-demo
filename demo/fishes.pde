@@ -58,8 +58,9 @@ class Fish {
     meshSet.parameters[2] = energy * fishiness;
     meshSet.parameters[3] = energy * fishiness;
     meshSet.parameters[4] = (sin(sec * 3 + phase) * 0.5 + 0.5) * fishiness;
-    meshSet.parameters[5] = seastarness;
-    meshSet.parameters[6] = energy * seastarness;
+    //meshSet.parameters[5] = seastarness;
+    //meshSet.parameters[6] = energy * seastarness;
+    meshSet.parameters[7] = seastarness;
   }
 
   public void pulse() {
@@ -72,7 +73,7 @@ class Fish {
   }
 
   Fish() {
-    meshSet = new MeshSet(7, 50);
+    meshSet = new MeshSet(8, 200);
     meshSet.setMesh(0, fishDefault, 0);
     meshSet.setMesh(1, fishUpperFin, 0);
     meshSet.setMesh(2, fishLowerFin, 0);
@@ -80,6 +81,7 @@ class Fish {
     meshSet.setMesh(4, fishMouth, 0);
     meshSet.setMesh(5, seaStar, 0.3);
     meshSet.setMesh(6, seaStarPulse, 0.3);
+    meshSet.setMesh(7, squid, 0);
 
     meshSet.parameters[0] = 1;
     meshSet.parameters[1] = 0;
@@ -87,6 +89,8 @@ class Fish {
     meshSet.parameters[3] = 0;
     meshSet.parameters[4] = 0;
     meshSet.parameters[5] = 0;
+    meshSet.parameters[6] = 0;
+    meshSet.parameters[7] = 0;
   }
 
   void draw() {
@@ -99,11 +103,29 @@ class Fish {
     m.renderWithImage(fishTexture, 255);
     m.renderWithImage(seastarTexture, (int)(seastarness * 255));
 
-    fill(0);
-    ellipse(0.7, -0.1, 0.13, 0.13);
+    float eye1X 
+      = 0.7 * fishiness
+      + -0.2 * seastarness;
+    float eye1Y 
+      = -0.1 * fishiness
+      + 0 * seastarness
+      ;
+    float eye2X 
+      = 0.7 * fishiness
+      + 0.2 * seastarness;
+    float eye2Y 
+      = -0.1 * fishiness
+      + 0 * seastarness;
 
+    fill(0);
+    ellipse(eye1X, eye1Y, 0.13, 0.13);
     fill(255);
-    ellipse(0.74, -0.14, 0.04, 0.04);
+    ellipse(eye1X + 0.4, eye1Y - 0.04, 0.04, 0.04);
+
+    fill(0);
+    ellipse(eye2X, eye2Y, 0.13, 0.13);
+    fill(255);
+    ellipse(eye2X + 0.4, eye2Y - 0.04, 0.04, 0.04);
 
     popMatrix();
   }
@@ -234,25 +256,75 @@ class Fishes implements Effect {
       ++i;
     }
 
-    squid = new Mesh(0);
+    squid = new Mesh(50);
     squid
       .v(1,    0) 
-      .v(0.98, -0.02)
-      .v(0.96, -0.015)
-      .v(0.6,  -0.515)
-      .v(0.15, -0.2)
-      .v(0,    -0.8)
-      .v(-0.95,-1)
-      .v(-1,   -0.95)
-      .v(-0.2,   -0.90)
-      .v(-0.1,   -0.85)
-      .v(-0.2,   -0.80)
-      .v(-1,   -0.75)
-      .v(-0.2,   -0.70)
-      .v(-0.1,   -0.65)
-      .v(-0.2,   -0.60)
-      .v(-1,   -0.55);
 
+      .v(0.98, -0.02)
+
+      .v(0.96, -0.015)
+
+      .v(0.6,  -0.515)
+
+      .v(0.15, -0.2)
+
+      .v(0,    -0.8)
+
+      .v(0,    -0.8)
+      .v(0,    -0.8)
+      .v(0,    -0.8)
+      .v(0,    -0.8)
+
+      .v(-0.95,-0.9)
+
+      //.v(-1,   -0.95)
+      //.v(-0.2, -0.90)
+      .v(-1,   -0.85)
+      .v(-0.2, -0.70)
+      .v(-0.1, -0.65)
+      .v(-0.2, -0.60)
+      .v(-1,   -0.55)
+
+      .v(-0.2, -0.40)
+      .v(-0.1, -0.35)
+      .v(-0.2, -0.30)
+      .v(-1,  -0.20)
+      .v(-0.2, -0.10)
+      .v(-0.1, -0.05)
+      .v(-0.2, -0.00)
+      .v(-1,  0.05)
+      .v(-0.2, 0.10)
+      .v(-0.1, 0.15)
+
+      .v(-0.2, 0.20)
+      .v(-1,  0.25)
+      .v(-0.2, 0.30)
+      .v(-0.1, 0.35)
+      .v(-0.2, 0.40)
+      .v(-1,  0.45)
+      .v(-0.2, 0.50)
+      .v(-0.1, 0.55)
+      .v(-0.2, 0.60)
+      .v(-1,  0.65)
+
+      .v(-0.2, 0.70)
+      .v(-0.1, 0.75)
+      .v(-0.2, 0.80)
+      .v(-1,  0.85)
+      .v(-0.95,0.9)
+
+      .v(0,    0.8)
+
+      .v(0,    0.8)
+      .v(0,    0.8)
+      .v(0,    0.8)
+      .v(0,    0.8)
+
+      .v(0.15, 0.2)
+      .v(0.6,  0.515)
+      .v(0.96, 0.015)
+      .v(0.98, 0.02)
+      ;
 
 
     lastPulse = 0;
