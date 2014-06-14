@@ -2,8 +2,10 @@ float defaultFishX[] = {
   1, //Lower lip
   0.96, //Mouth
   1, //Upper lip
+  0.6,
 
   0.2, //Upper fin begin
+  0, //Upper fin top
   -0.3, //Upper fin top
   -0.3, //Upper fin  end
 
@@ -16,14 +18,18 @@ float defaultFishX[] = {
   -0.3, //Lower fin begin
   -0.3, //Lower fin bottom
   0.2, //Lower end 
+
+  0.6,
 };
 
 float defaultFishY[] = {
   0.1, //Lower lip
   0, //Mouth
   -0.1, //Upper lip
+  -0.28,
 
   -0.3, //Upper fin begin
+  -0.35, //Upper fin top
   -0.5, //Upper fin top
   -0.15, //Upper fin  end
 
@@ -37,15 +43,19 @@ float defaultFishY[] = {
   0.15, //Lower fin begin
   0.5, //Lower fin bottom
   0.3, //Lower end 
+
+  0.28,
 };
 
 float upperFinFishX[] = {
   0, //Lower lip
   0, //Mouth
   0, //Upper lip
+  0,
 
   0, //Upper fin begin
   -0.05, //Upper fin top
+  -0.03, //Upper fin top
   0, //Upper fin  end
 
   0, //Tail begin
@@ -57,14 +67,18 @@ float upperFinFishX[] = {
   0, //Lower fin begin
   0, //Lower fin bottom
   0, //Lower end 
+
+  0,
 };
 
 float upperFinFishY[] = {
   0, //Lower lip
   0, //Mouth
   0, //Upper lip
+  0,
 
   0, //Upper fin begin
+  -0.4, //Upper fin top
   -0.5, //Upper fin top
   0, //Upper fin  end
 
@@ -77,14 +91,18 @@ float upperFinFishY[] = {
   0, //Lower fin begin
   0, //Lower fin bottom
   0, //Lower end 
+
+  0,
 };
 
 float lowerFinFishX[] = {
   0, //Lower lip
   0, //Mouth
   0, //Upper lip
+  0,
 
   0, //Upper fin begin
+  0, //Upper fin top
   0, //Upper fin top
   0, //Upper fin  end
 
@@ -97,14 +115,18 @@ float lowerFinFishX[] = {
   0, //Lower fin begin
   -0.05, //Lower fin bottom
   0, //Lower end 
+
+  0,
 };
 
 float lowerFinFishY[] = {
   0, //Lower lip
   0, //Mouth
   0, //Upper lip
+  0,
 
   0, //Upper fin begin
+  0, //Upper fin top
   0, //Upper fin top
   0, //Upper fin  end
 
@@ -117,14 +139,18 @@ float lowerFinFishY[] = {
   0, //Lower fin begin
   0.5, //Lower fin bottom
   0, //Lower end 
+
+  0,
 };
 
 float tailLengthFishX[] = {
   0, //Lower lip
   0, //Mouth
   0, //Upper lip
+  0,
 
   0, //Upper fin begin
+  0, //Upper fin top
   0, //Upper fin top
   0, //Upper fin  end
 
@@ -137,14 +163,18 @@ float tailLengthFishX[] = {
   0, //Lower fin begin
   0, //Lower fin bottom
   0, //Lower end 
+
+  0,
 };
 
 float tailLengthFishY[] = {
   0, //Lower lip
   0, //Mouth
   0, //Upper lip
+  0,
 
   0, //Upper fin begin
+  0, //Upper fin top
   0, //Upper fin top
   0, //Upper fin  end
 
@@ -157,14 +187,18 @@ float tailLengthFishY[] = {
   0, //Lower fin begin
   0, //Lower fin bottom
   0, //Lower end 
+
+  0,
 };
 
 float tailExpandFishX[] = {
   0, //Lower lip
   0, //Mouth
   0, //Upper lip
+  0,
 
   0, //Upper fin begin
+  0, //Upper fin top
   0, //Upper fin top
   0, //Upper fin  end
 
@@ -177,14 +211,18 @@ float tailExpandFishX[] = {
   0, //Lower fin begin
   0, //Lower fin bottom
   0, //Lower end 
+
+  0,
 };
 
 float tailExpandFishY[] = {
   0, //Lower lip
   0, //Mouth
   0, //Upper lip
+  0,
 
   0, //Upper fin begin
+  0, //Upper fin top
   0, //Upper fin top
   0, //Upper fin  end
 
@@ -197,14 +235,18 @@ float tailExpandFishY[] = {
   0, //Lower fin begin
   0, //Lower fin bottom
   0, //Lower end 
+
+  0,
 };
 
 float mouthOpenFishX[] = {
   0, //Lower lip
   -0.2, //Mouth
   0, //Upper lip
+  0,
 
   0, //Upper fin begin
+  0, //Upper fin top
   0, //Upper fin top
   0, //Upper fin  end
 
@@ -217,14 +259,18 @@ float mouthOpenFishX[] = {
   0, //Lower fin begin
   0, //Lower fin bottom
   0, //Lower end 
+
+  0,
 };
 
 float mouthOpenFishY[] = {
   0.05, //Lower lip
   0, //Mouth
   -0.05, //Upper lip
+  0,
 
   0, //Upper fin begin
+  0, //Upper fin top
   0, //Upper fin top
   0, //Upper fin  end
 
@@ -237,6 +283,8 @@ float mouthOpenFishY[] = {
   0, //Lower fin begin
   0, //Lower fin bottom
   0, //Lower end 
+
+  0,
 };
 
 class Fish {
@@ -303,6 +351,7 @@ class Fish {
     this.strokeColor.setStroke();
     noStroke();
 
+
     beginShape();
     texture(this.texture);
     float firstX = 0, firstY = 0, firstU = 0, firstV = 0;
@@ -340,8 +389,16 @@ class Fish {
         firstV = v;
       }
     }
+
     vertex(firstX, firstY, firstU, firstV);
     endShape();
+
+    fill(0);
+    ellipse(0.7, -0.1, 0.13, 0.13);
+
+    fill(255);
+    ellipse(0.74, -0.14, 0.04, 0.04);
+
     popMatrix();
   }
 }

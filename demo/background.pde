@@ -37,22 +37,37 @@ class Background implements Effect {
   void draw(float secs) {
     resetMatrix();
     noStroke();
-    for (int i = 0; i < this.numLines; ++i) {
-      int y = i * this.lineHeight;
+    int[] previousSplitPoints = this.getSplitPoints(0, secs);
+    for (int i = 1; i < this.numLines; ++i) {
+      int y = (i - 1) * this.lineHeight;
       int[] splitPoints = this.getSplitPoints(i, secs);
-      int x1 = 0; 
+      int x1 = 0, previousX1 = 0; 
       int colorIndex = 0;
       for (int j = 0; j <= splitPoints.length; ++j) {
-        int x2;
-        if (j == splitPoints.length)
+        int x2, previousX2;
+        if (j == splitPoints.length) {
           x2 = width;
-        else
+          previousX2 = width;
+        }
+        else {
           x2 = splitPoints[j];
+          previousX2 = previousSplitPoints[j];
+        }
+
         this.colors[colorIndex % this.colors.length].setFill();
-        rect(x1, y, x2 - x1, this.lineHeight);
+
+        beginShape();
+          vertex(previousX1, y);
+          vertex(previousX2, y);
+          vertex(x2, y + this.lineHeight);
+          vertex(x1, y + this.lineHeight);
+        endShape();
+
         x1 = x2;
+        previousX1 = previousX2;
         colorIndex++;
       }
+      previousSplitPoints = splitPoints;
     }
   }
 }
