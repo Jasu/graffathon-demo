@@ -36,7 +36,6 @@ class Background implements Effect {
 
   void draw(float secs) {
     resetMatrix();
-    clear();
     noStroke();
     for (int i = 0; i < this.numLines; ++i) {
       int y = i * this.lineHeight;

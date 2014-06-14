@@ -337,7 +337,6 @@ class Fish {
     float shapeX[] = defaultFishX;
     float shapeY[] = defaultFishY;
 
-    println("X " + x + "Y " + y);
     pushMatrix();
     translate(x, y);
     rotate(atan2(initSpeedX, initSpeedY));
@@ -402,7 +401,7 @@ class Fishes implements Effect {
     lastPulse = 0;
     f = new Fish();
     f.phase = 1;
-    f.strokeColor = new Color(255,255,255);
+    f.strokeColor = new Color(0,94,128);
     this.texture = loadImage("ananas.jpg");
     f.texture = this.texture;
     f.x = 0;
@@ -423,9 +422,7 @@ class Fishes implements Effect {
     }
 
     resetMatrix();
-    clear();
-    translate(400, 300);
-    scale(30);
+    scale(60);
 
     float delta = secs - lastSec;
     if (lastSec == 0)
