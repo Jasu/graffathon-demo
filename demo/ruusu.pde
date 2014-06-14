@@ -20,10 +20,7 @@
     if (end > 9 || r <= 0){ 
       return; 
     }
-    float asdf = 0.4/sin(secs);
-	if (asdf == 0){
-		asdf = 0.001;
-	}
+    float asdf = sin(secs);
     //vasen
     float x2 = x + (r * cos(PI/4 + ((PI/2)*ang)));
     float y2 = y + (r * sin(PI/4 + ((PI/2)*ang)));
