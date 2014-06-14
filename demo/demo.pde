@@ -44,16 +44,15 @@ void setup() {
   frameRate(60);
 
   effects = new Effect[5];
-  effects[0] = new Fishes();
-  effects[1] = new Background();
-  effects[2] = new Puu();
-  effects[3] = new Effect2();
-  effects[4] = new Verkko();
+  effects[0] = new Puu();
+  effects[1] = new Effect2();
+  effects[2] = new Verkko();
+  effects[3] = new Fishes();
+  effects[4] = new Background();
 
   for (Effect effect : effects) {
     effect.setup();
   }
-
   minim = new Minim(this);
   song = minim.loadFile("../processing/common/tekno_127bpm.mp3");
   song.play();
