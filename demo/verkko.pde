@@ -1,7 +1,7 @@
- class Puu implements Effect {
+ class Verkko implements Effect {
   int div1 = 1;
   int div2 = 10;
-  float r = 40;  
+  float r = height/12;  
   void setup() {
   }
 

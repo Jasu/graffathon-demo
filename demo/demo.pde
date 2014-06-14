@@ -43,11 +43,12 @@ void setup() {
   size(CANVAS_WIDTH, CANVAS_HEIGHT, P2D);
   frameRate(60);
 
-  effects = new Effect[4];
+  effects = new Effect[5];
   effects[0] = new Ellipse();
   effects[1] = new Clear();
   effects[2] = new Puu();
   effects[3] = new Effect2();
+  effects[4] = new Verkko();
   
 
   minim = new Minim(this);
