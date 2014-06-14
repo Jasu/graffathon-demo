@@ -9,13 +9,13 @@ class Kupla {
     x = random(width);
     y = random(height); 
     size = random(70); 
-    mod = random(100)/10;
-    lift = height/(random(30)+20);
+    mod = random(7);
+    lift = height/(random(30)+200);
   }
   void draw(float secs) {
         tint(255, 127);  
         texture(texture);
-        x = x + sin(secs)*mod;
+        x = x + sin(secs * 0.5)*mod;
         y = y - lift;
         image(texture, x, y, size, size);   
   }  

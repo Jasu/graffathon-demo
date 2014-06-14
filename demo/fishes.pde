@@ -4,6 +4,8 @@ Mesh fishLowerFin;
 Mesh fishTail;
 Mesh fishMouth;
 
+Mesh seaStar;
+
 class Fish {
   MeshSet meshSet;
   public float fins;
@@ -29,34 +31,38 @@ class Fish {
     speedX *= 1 - 2.995 * secdiff;
     speedY *= 1 - 2.995 * secdiff;
 
-    meshSet.parameters[4] = sin(sec * 3 + phase) * 0.5 + 0.5;
+    //meshSet.parameters[4] = sin(sec * 3 + phase) * 0.5 + 0.5;
 
-    meshSet.parameters[1] *= 1.0 - 0.95*secdiff;
-    meshSet.parameters[2] *= 1.0 - 0.95*secdiff;
-    meshSet.parameters[3] *= 1.0 - 0.85*secdiff;
+    //meshSet.parameters[1] *= 1.0 - 0.95*secdiff;
+    //meshSet.parameters[2] *= 1.0 - 0.95*secdiff;
+    //meshSet.parameters[3] *= 1.0 - 0.85*secdiff;
+    meshSet.parameters[0] = 1.0 - (0.5 * cos(sec) + 0.5);
+    meshSet.parameters[5] = 0.5 * cos(sec) + 0.5;
   }
 
   public void pulse() {
-    meshSet.parameters[1] = 1;
-    meshSet.parameters[2] = 1;
-    meshSet.parameters[3] = 1;
+    //meshSet.parameters[1] = 1;
+    //meshSet.parameters[2] = 1;
+    //meshSet.parameters[3] = 1;
     speedX = initSpeedX;
     speedY = initSpeedY;
   }
 
   Fish() {
-    meshSet = new MeshSet(5, 50);
+    meshSet = new MeshSet(6, 50);
     meshSet.setMesh(0, fishDefault, 0);
     meshSet.setMesh(1, fishUpperFin, 0);
     meshSet.setMesh(2, fishLowerFin, 0);
     meshSet.setMesh(3, fishTail, 0);
     meshSet.setMesh(4, fishMouth, 0);
+    meshSet.setMesh(5, seaStar, 0.3);
 
     meshSet.parameters[0] = 1;
     meshSet.parameters[1] = 0;
     meshSet.parameters[2] = 0;
     meshSet.parameters[3] = 0;
     meshSet.parameters[4] = 0;
+    meshSet.parameters[5] = 0;
   }
 
   void draw() {
@@ -67,55 +73,6 @@ class Fish {
 
     Mesh m = meshSet.getMesh();
     m.renderWithImage(texture);
-    
-    //this.fillColor.setFill();
-    //strokeWeight(0.07);
-    //this.strokeColor.setStroke();
-    //noStroke();
-
-
-/*
-    beginShape();
-    texture(this.texture);
-    float firstX = 0, firstY = 0, firstU = 0, firstV = 0;
-    for (int i = 0; i < shapeX.length; ++i) {
-      float x = shapeX[i];
-      float y = shapeY[i];
-
-      x += this.upperFin * upperFinFishX[i];
-      y += this.upperFin * upperFinFishY[i];
-
-      x += this.lowerFin * lowerFinFishX[i];
-      y += this.lowerFin * lowerFinFishY[i];
-
-      x += this.tailLength * tailLengthFishX[i];
-      y += this.tailLength * tailLengthFishY[i];
-
-      x += this.tailExpand * tailExpandFishX[i];
-      y += this.tailExpand * tailExpandFishY[i];
-
-      x += this.mouthOpen * mouthOpenFishX[i];
-      y += this.mouthOpen * mouthOpenFishY[i];
-      
-      float u = (x + 1) / 2;
-      float v = (y + 1) / 2;
-      u *= 512;
-      v *= 512;
-
-      vertex(x, y, u, v);
-
-
-      if (i == 0) {
-        firstX = x;
-        firstY = y;
-        firstU = u;
-        firstV = v;
-      }
-    }
-
-    vertex(firstX, firstY, firstU, firstV);
-    endShape();
-    */
 
     fill(0);
     ellipse(0.7, -0.1, 0.13, 0.13);
@@ -232,6 +189,15 @@ class Fishes implements Effect {
       .v(0, 0)
       .v(0, 0)
       .v(0, 0);
+
+    seaStar = new Mesh(10);
+
+    for (int i = 0; i < 10;) {
+      seaStar.v(cos(-TWO_PI * i / 10.0), sin (-TWO_PI * i / 10.0));
+      ++i;
+      seaStar.v(cos(-TWO_PI * i / 10.0) * 0.3, sin (-TWO_PI * i / 10.0) * 0.3);
+      ++i;
+    }
 
     lastPulse = 0;
     f = new Fish();
