@@ -7,11 +7,11 @@ float defaultFishX[] = {
   -0.3, //Upper fin top
   -0.3, //Upper fin  end
 
-  -0.5, //Tail begin
-  -0.65, //Tail upper
-  -0.7, //Tail middle
-  -0.65, //Tail lower
-  -0.5, //Tail end
+  -0.3, //Tail begin
+  -0.35, //Tail upper
+  -0.4, //Tail middle
+  -0.35, //Tail lower
+  -0.3, //Tail end
 
   -0.3, //Lower fin begin
   -0.3, //Lower fin bottom
@@ -23,9 +23,9 @@ float defaultFishY[] = {
   0, //Mouth
   -0.1, //Upper lip
 
-  -0.4, //Upper fin begin
+  -0.3, //Upper fin begin
   -0.5, //Upper fin top
-  -0.25, //Upper fin  end
+  -0.15, //Upper fin  end
 
   -0.2, //Tail begin
   -0.17, //Tail upper
@@ -34,49 +34,9 @@ float defaultFishY[] = {
   0.17, //Tail lower
   0.2, //Tail end
 
-  0.25, //Lower fin begin
+  0.15, //Lower fin begin
   0.5, //Lower fin bottom
-  0.4, //Lower end 
-};
-
-float fatnessFishX[] = {
-  0, //Lower lip
-  0, //Mouth
-  0, //Upper lip
-
-  0, //Upper fin begin
-  0, //Upper fin top
-  0, //Upper fin  end
-
-  0, //Tail begin
-  0, //Tail upper
-  0, //Tail middle
-  0, //Tail lower
-  0, //Tail end
-
-  0, //Lower fin begin
-  0, //Lower fin bottom
-  0, //Lower end 
-};
-
-float fatnessFishY[] = {
-  0, //Lower lip
-  0, //Mouth
-  0, //Upper lip
-
-  -0.17, //Upper fin begin
-  -0.2, //Upper fin top
-  -0.17, //Upper fin  end
-
-  -0.05, //Tail begin
-  0, //Tail upper
-  0, //Tail middle
-  0, //Tail lower
-  0.05, //Tail end
-
-  0.17, //Lower fin begin
-  0.2, //Lower fin bottom
-  0.17, //Lower end 
+  0.3, //Lower end 
 };
 
 float upperFinFishX[] = {
@@ -168,11 +128,11 @@ float tailLengthFishX[] = {
   0, //Upper fin top
   0, //Upper fin  end
 
-  -0.15, //Tail begin
-  -0.35, //Tail upper
-  -0.15, //Tail middle
-  -0.35, //Tail lower
-  -0.15, //Tail end
+  -0.25, //Tail begin
+  -0.65, //Tail upper
+  -0.25, //Tail middle
+  -0.65, //Tail lower
+  -0.25, //Tail end
 
   0, //Lower fin begin
   0, //Lower fin bottom
@@ -280,7 +240,6 @@ float mouthOpenFishY[] = {
 };
 
 class Fish {
-  public float fatness;
   public float upperFin;
   public float lowerFin;
   public float tailLength;
@@ -300,14 +259,13 @@ class Fish {
   public float phase;
 
   public void step(float sec, float secdiff) {
-    x += speedX * secdiff;
-    y += speedY * secdiff; 
+    //x += speedX * secdiff;
+    //y += speedY * secdiff; 
 
     speedX *= 1 - 2.995 * secdiff;
     speedY *= 1 - 2.995 * secdiff;
 
     mouthOpen = sin(sec * 3 + phase) * 0.5 + 0.5;
-    fatness = sin(sec * 2 + phase) * 0.5 + 0.5;
 
     upperFin *= 1.0 - 0.95*secdiff;
     lowerFin *= 1.0  - 0.95*secdiff;
@@ -325,7 +283,6 @@ class Fish {
   }
 
   Fish() {
-    this.fatness = 0;
     this.upperFin = 0;
     this.lowerFin = 0;
     this.tailLength = 0;
@@ -341,10 +298,10 @@ class Fish {
     translate(x, y);
     rotate(atan2(initSpeedX, initSpeedY));
 
-    //noStroke();
     //this.fillColor.setFill();
     strokeWeight(0.07);
     this.strokeColor.setStroke();
+    noStroke();
 
     beginShape();
     texture(this.texture);
@@ -352,9 +309,6 @@ class Fish {
     for (int i = 0; i < shapeX.length; ++i) {
       float x = shapeX[i];
       float y = shapeY[i];
-
-      x += this.fatness * fatnessFishX[i];
-      y += this.fatness * fatnessFishY[i];
 
       x += this.upperFin * upperFinFishX[i];
       y += this.upperFin * upperFinFishY[i];
@@ -404,12 +358,12 @@ class Fishes implements Effect {
     f.strokeColor = new Color(0,94,128);
     this.texture = loadImage("ananas.jpg");
     f.texture = this.texture;
-    f.x = 0;
-    f.y = 0;
+    f.x = 10;
+    f.y = 5;
     f.speedX = 0;
     f.speedY = 0;
-    f.initSpeedX = 5;
-    f.initSpeedY = 5;
+    f.initSpeedX = 0;
+    f.initSpeedY = 0;
     lastSec = 0;
   }
 

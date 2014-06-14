@@ -21,11 +21,12 @@ class Aquarium implements Effect {
     float y = 0-(r/2);     
     puu.draw(secs, x, y, r);
 
-    fishes.draw(secs);
     
     r = height/13;
     x = width/2+(width/4);
     y = height/15;     
     puu.draw(secs, x, y, r);    
+
+    fishes.draw(secs);
   }
 }
