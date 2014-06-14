@@ -1,4 +1,4 @@
-class Lines implements Effect {
+class Ellipse implements Effect {
   void setup() {
   }
 
