@@ -43,12 +43,13 @@ void setup() {
   size(CANVAS_WIDTH, CANVAS_HEIGHT, P2D);
   frameRate(60);
 
-  effects = new Effect[5];
+  effects = new Effect[6];
   effects[0] = new Puu();
   effects[1] = new Effect2();
   effects[2] = new Verkko();
   effects[3] = new Fishes();
   effects[4] = new Background();
+  effects[5] = new Ruusu();
 
   for (Effect effect : effects) {
     effect.setup();
