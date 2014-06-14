@@ -18,6 +18,10 @@ import ddf.minim.effects.*;
 // full HD resolution (1920x1080).
 int CANVAS_WIDTH = 480;
 int CANVAS_HEIGHT = 360;
+float ASPECT_RATIO = (float)CANVAS_WIDTH/CANVAS_HEIGHT;
+int currentEffect = 0;
+
+Effect effects[];
 
 // You can skip backwards/forwards in your demo by using the 
 // arrow keys; this controls how many milliseconds you skip
@@ -39,7 +43,9 @@ void setup() {
   size(CANVAS_WIDTH, CANVAS_HEIGHT, P2D);
   frameRate(60);
 
-  // Your setup code
+  effects = new Effect[2];
+  effects[0] = new Ellipse();
+  effects[1] = new Clear();
 
   minim = new Minim(this);
   song = minim.loadFile("../processing/common/tekno_127bpm.mp3");
@@ -51,14 +57,17 @@ void setup() {
  * Processing's drawing method
  */
 void draw() {
-  // Draw something
+  float secs = millis() / 1000.0;
+  effects[currentEffect].draw(secs);
 }
 
 
-/* 
- * Simple playback controls 
- * for easier development.
- */
+void nextEffect() {
+  currentEffect++;
+  if (currentEffect >= effects.length) 
+    currentEffect = 0;
+}
+
 void keyPressed() {
   if (key == CODED) {
     // Left/right arrow keys: seek song
@@ -69,12 +78,8 @@ void keyPressed() {
       song.skip(SONG_SKIP_MILLISECONDS);
     }
   }
-  // Space bar: play/payse
   else if (key == ' ') {
-    if (song.isPlaying())
-      song.pause();
-    else
-      song.play();
+    nextEffect();
   }
   // Enter: spit out the current position
   // (for syncing)
