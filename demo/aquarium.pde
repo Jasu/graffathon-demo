@@ -20,15 +20,25 @@ class Aquarium implements Effect {
 
     float r = height/12;
     
-    float x = width/2-(width/4);
-    float y = 0-(r/2);     
-    puu.draw(secs, x, y, r);
+    float x = width/2-(width/4)+(width/8);
+    float y = 0-(r/1.3);     
+    puu.draw(secs, x, y, r, 0.5, 0.3, -0.2);
 
     
     r = height/13;
     x = width/2+(width/4);
     y = height/15;     
-    puu.draw(secs, x, y, r);    
+    puu.draw(secs, x, y, r, 0.5, 0.2, -0.4);    
+
+    r = height/15;
+    x = width/(width/4);
+    y = 0-1.5*r;     
+    puu.draw(secs, x, y, r, 0.5, 0.4, -0.2); 
+
+    r = height/17;
+    x = width/2;
+    y = 0-2*r;     
+    puu.draw(secs, x, y, r, 0.5, 0.2, -0.2); 
 
     fishes.draw(secs);
     
