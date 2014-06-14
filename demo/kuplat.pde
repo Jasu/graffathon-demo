@@ -1,7 +1,7 @@
 class Kupla {
   public PImage texture;
   float x;
-  float y;
+  public float y;
   float size;
   float mod;
   float lift;
@@ -25,9 +25,9 @@ class Kupla {
   public PImage texture; 
   Kupla k[]; 
   void setup() {
-    k = new Kupla[10];
+    k = new Kupla[20];
     this.texture = loadImage("kupla.png");    
-    for (int i = 0; i < 10; i++){
+    for (int i = 0; i < 20; i++){
       k[i] = new Kupla();
       k[i].texture = this.texture;
     }
@@ -35,9 +35,14 @@ class Kupla {
 
   void draw(float secs) {
     strokeWeight(1);
-  resetMatrix();    
-    for (int i = 0; i < 10; i++){
+    resetMatrix();    
+    for (int i = 0; i < 20; i++){
         k[i].draw(secs);
+        if (k[i].y < -20){
+          k[i] = new Kupla();
+          k[i].texture = this.texture;
+          k[i].y = height;
+        }        
     }
     tint(255, 255);
   
