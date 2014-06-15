@@ -38,23 +38,14 @@ AudioPlayer song;
  *
  * Do all your one-time setup routines in here.
  */
+Aquarium a;
 void setup() {
   // Set up the drawing area size and renderer (P2D / P3D).
   size(CANVAS_WIDTH, CANVAS_HEIGHT, P2D);
   frameRate(60);
+  a = new Aquarium();
+  a.setup();
 
-  effects = new Effect[5];
-  effects[0] = new Aquarium();
-  effects[1] = new Effect2();
-  effects[2] = new Verkko();
-  //effects[3] = new Fishes();
-  effects[3] = new Background();
-  effects[4] = new Ruusu();
-  //effects[6] = new Puu();
-
-  for (Effect effect : effects) {
-    effect.setup();
-  }
   minim = new Minim(this);
   song = minim.loadFile("demobiisi2.wav");
   song.play();
@@ -65,16 +56,14 @@ void setup() {
  * Processing's drawing method
  */
 void draw() {
+  if (!song.isPlaying())
+    exit();
+
   float secs = song.position() / 1000.0;
   clear();
-  effects[currentEffect].draw(secs);
-}
+  a.draw(secs);
 
-
-void nextEffect() {
-  currentEffect++;
-  if (currentEffect >= effects.length) 
-    currentEffect = 0;
+  //24.375
 }
 
 void keyPressed() {
@@ -86,9 +75,6 @@ void keyPressed() {
     else if (keyCode == RIGHT) {
       song.skip(SONG_SKIP_MILLISECONDS);
     }
-  }
-  else if (key == ' ') {
-    nextEffect();
   }
   // Enter: spit out the current position
   // (for syncing)

@@ -3,6 +3,9 @@ class Aquarium implements Effect {
   EvolveBlob evolveBlob;
   Puu puu;
   Ruusu ruusu;
+  Group group;
+  Greets greets;
+  Demoni demoni;
   float dir = -1;
   Kuplat kuplat;
 
@@ -16,7 +19,10 @@ class Aquarium implements Effect {
   public void setup() {
     mode = 0;
 
+    greets = new Greets();
     ruusu = new Ruusu();
+    group = new Group();
+    demoni = new Demoni();
     ruusu.setup();
     background = new Background();
     evolveBlob = new EvolveBlob();
@@ -53,37 +59,37 @@ class Aquarium implements Effect {
     if (secs > 5 && mode < 1) {
       mode = 1;
     }
-    if (secs > 15 && mode < 2) {
+    if (secs > 25 && mode < 2) {
       mode = 2;
       kuplat.setup();
     }
-    if (secs > 18 && mode < 3) {
+    if (secs > 28 && mode < 3) {
       mode = 3;
     }
-    if (secs > 28 && mode < 4) {
+    if (secs > 38 && mode < 4) {
       mode = 4;
       kuplat.setup();
     }
-    if (secs > 31 && mode < 5) {
+    if (secs > 41 && mode < 5) {
       mode = 5;
     }
 
-    if (secs > 51 && mode < 6) {
+    if (secs > 61 && mode < 6) {
       mode = 6;
     }
 
-    if (secs > 71 && mode < 7) {
+    if (secs > 81 && mode < 7) {
       mode = 7;
     }
 
-    if (secs > 91 && mode < 8) {
+    if (secs > 101 && mode < 8) {
       mode = 8;
     }
-    if (secs > 111 && mode < 9) {
+    if (secs > 121 && mode < 9) {
       mode = 9;
     }
 
-    if (secs > 131 && mode < 10) {
+    if (secs > 141 && mode < 10) {
       mode = 10;
     }
 
@@ -236,7 +242,7 @@ class Aquarium implements Effect {
     if (treeMultiplier > 0.01)
     {
       float r = height/12;
-      r += cos(TWO_PI * secs * 2 * (8.0 / 6.0)) * 2 * puuSvengi;
+      r += cos(TWO_PI * secs  / (8.0 / 6.0)) * 2 * puuSvengi;
       r *= treeMultiplier;
       
       float x = width/2-(width/4)+(width/8);
@@ -245,21 +251,21 @@ class Aquarium implements Effect {
 
       
       r = height/13;
-      r += cos(TWO_PI * secs * 2 * (8.0 / 6.0)) * 2 * puuSvengi;
+      r += cos(TWO_PI * secs / (8.0 / 6.0)) * 2 * puuSvengi;
       r *= treeMultiplier;
       x = width/2+(width/4);
       y = height/15;     
       puu.draw(secs, x, y, r, 0.5, 0.2, -0.4, treeColor, treeAlpha);    
 
       r = height/15;
-      r += cos(TWO_PI * secs * 2 * (8.0 / 6.0)) * 2 * puuSvengi;
+      r += cos(TWO_PI * secs / (8.0 / 6.0)) * 2 * puuSvengi;
       r *= treeMultiplier;
       x = width/(width/4);
       y = 0-1.5*r;     
       puu.draw(secs, x, y, r, 0.5, 0.4, -0.2, treeColor * 0.90, treeAlpha); 
 
       r = height/17;
-      r += cos(TWO_PI * secs * 2 * (8.0 / 6.0)) * 2 * puuSvengi;
+      r += cos(TWO_PI * secs / (8.0 / 6.0)) * 2 * puuSvengi;
       r *= treeMultiplier;
       x = width/2;
       y = 0-2*r;
@@ -268,11 +274,19 @@ class Aquarium implements Effect {
 
     //fishes.draw(secs);
 
+    if (mode == 1) {
+      group.draw(delta);
+      demoni.draw(delta);
+    }
+
     if (mode == 3 || mode == 4)
       ruusu.draw(secs);
 
     if (mode >= 5)
       evolveBlob.draw(secs);
+
+    if (mode == 9)
+      greets.draw(delta);
     
     if (mode == 2 || mode == 4)
       kuplat.draw(secs);
