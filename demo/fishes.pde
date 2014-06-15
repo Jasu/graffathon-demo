@@ -1,3 +1,6 @@
+Mesh blob;
+Mesh blobPulse;
+
 Mesh fishDefault;
 Mesh fishUpperFin;
 Mesh fishLowerFin;
@@ -8,6 +11,7 @@ Mesh seaStar;
 Mesh seaStarPulse;
 
 Mesh squid;
+Mesh squidPulse;
 
 
 class Fish {
@@ -16,12 +20,15 @@ class Fish {
   public float tail;
   public float mouth;
 
-  public float fishiness;
-  public float seastarness;
+  public float mode;
+
   public float energy;
 
+  public PImage blobTexture;
   public PImage fishTexture;
   public PImage seastarTexture;
+  public PImage squidTexture;
+
   public Color fillColor;
   public Color strokeColor;
 
@@ -31,6 +38,11 @@ class Fish {
   public float initSpeedY;
   public float x;
   public float y;
+
+  public float seastarness;
+  public float fishiness;
+  public float squidness;
+  public float blobness;
 
   public float phase;
 
@@ -44,36 +56,51 @@ class Fish {
 
     energy *= 1.0 - 0.95 * secdiff;
 
-    seastarness = 0.5 * cos(sec * 0.5) + 0.5;
-    fishiness = 1.0 - seastarness;
-
-    //meshSet.parameters[1] *= 1.0 - 0.95*secdiff;
-    //meshSet.parameters[2] *= 1.0 - 0.95*secdiff;
-    //meshSet.parameters[3] *= 1.0 - 0.85*secdiff;
-    //meshSet.parameters[0] = 1.0 - (0.5 * cos(sec) + 0.5);
-    //meshSet.parameters[5] = 0.5 * cos(sec) + 0.5;
+    fishiness = 0; 
+    seastarness = 0; 
+    squidness = 0;
+    blobness = 0;
+    if (mode < 0)
+    {
+      blobness = -mode;
+      seastarness = 1 + mode;
+    }
+    else if (mode < 1)
+    {
+      seastarness = 1 - mode;
+      fishiness = mode;
+    }
+    else if (mode <= 2) {
+      fishiness = 2 - mode;
+      squidness = mode - 1;
+    }
+    else {
+      seastarness = mode - 2;
+      squidness = mode - 2;
+      fishiness = mode - 2;
+    }
 
     meshSet.parameters[0] = fishiness;
     meshSet.parameters[1] = energy * fishiness;
     meshSet.parameters[2] = energy * fishiness;
     meshSet.parameters[3] = energy * fishiness;
     meshSet.parameters[4] = (sin(sec * 3 + phase) * 0.5 + 0.5) * fishiness;
-    //meshSet.parameters[5] = seastarness;
-    //meshSet.parameters[6] = energy * seastarness;
-    meshSet.parameters[7] = seastarness;
+    meshSet.parameters[5] = seastarness;
+    meshSet.parameters[6] = energy * seastarness;
+    meshSet.parameters[7] = squidness;
+    meshSet.parameters[8] = energy * squidness; 
+    meshSet.parameters[9] = blobness;
+    meshSet.parameters[10] = energy * blobness;
   }
 
   public void pulse() {
-    //meshSet.parameters[1] = 1;
-    //meshSet.parameters[2] = 1;
-    //meshSet.parameters[3] = 1;
     energy = 1;
     speedX = initSpeedX;
     speedY = initSpeedY;
   }
 
   Fish() {
-    meshSet = new MeshSet(8, 200);
+    meshSet = new MeshSet(11, 200);
     meshSet.setMesh(0, fishDefault, 0);
     meshSet.setMesh(1, fishUpperFin, 0);
     meshSet.setMesh(2, fishLowerFin, 0);
@@ -82,6 +109,9 @@ class Fish {
     meshSet.setMesh(5, seaStar, 0.3);
     meshSet.setMesh(6, seaStarPulse, 0.3);
     meshSet.setMesh(7, squid, 0);
+    meshSet.setMesh(8, squidPulse, 0);
+    meshSet.setMesh(9, blob, 0);
+    meshSet.setMesh(10, blobPulse, 0);
 
     meshSet.parameters[0] = 1;
     meshSet.parameters[1] = 0;
@@ -91,6 +121,9 @@ class Fish {
     meshSet.parameters[5] = 0;
     meshSet.parameters[6] = 0;
     meshSet.parameters[7] = 0;
+    meshSet.parameters[8] = 0;
+    meshSet.parameters[9] = 0;
+    meshSet.parameters[10] = 0;
   }
 
   void draw() {
@@ -100,32 +133,44 @@ class Fish {
     rotate(atan2(initSpeedX, initSpeedY));
 
     Mesh m = meshSet.getMesh();
-    m.renderWithImage(fishTexture, 255);
-    m.renderWithImage(seastarTexture, (int)(seastarness * 255));
+
+    if (blobness > 0)
+      m.renderWithImage(blobTexture, 255);
+    if (seastarness > 0)
+      m.renderWithImage(seastarTexture, (int)(blobness > 0 ? (seastarness * 255) : 255));
+    if (fishiness > 0)
+      m.renderWithImage(fishTexture, (int)(seastarness > 0 ? (fishiness * 255) : 255));
+    if (squidness > 0)
+      m.renderWithImage(squidTexture, (int)(squidness * 255));
+
 
     float eye1X 
       = 0.7 * fishiness
-      + -0.2 * seastarness;
+      + -0.2 * seastarness
+      + 0.7 * squidness;
     float eye1Y 
       = -0.1 * fishiness
       + 0 * seastarness
+      + -0.15 * squidness;
       ;
     float eye2X 
       = 0.7 * fishiness
-      + 0.2 * seastarness;
+      + 0.2 * seastarness
+      + 0.7 * squidness;
     float eye2Y 
       = -0.1 * fishiness
-      + 0 * seastarness;
+      + 0 * seastarness
+      + 0.15 * squidness;
 
-    fill(0);
+    fill (0, 255 * (1.0 - blobness));
     ellipse(eye1X, eye1Y, 0.13, 0.13);
-    fill(255);
-    ellipse(eye1X + 0.4, eye1Y - 0.04, 0.04, 0.04);
+    fill (255, 255 * (1.0 - blobness));
+    ellipse(eye1X + 0.04, eye1Y - 0.04, 0.04, 0.04);
 
-    fill(0);
+    fill (0, 255 * (1.0 - blobness));
     ellipse(eye2X, eye2Y, 0.13, 0.13);
-    fill(255);
-    ellipse(eye2X + 0.4, eye2Y - 0.04, 0.04, 0.04);
+    fill (255, 255 * (1.0 - blobness));
+    ellipse(eye2X + 0.04, eye2Y - 0.04, 0.04, 0.04);
 
     popMatrix();
   }
@@ -133,16 +178,41 @@ class Fish {
 
 class Fishes implements Effect {
   Fish f;
+  PImage blobTexture;
   PImage fishTexture;
   PImage seastarTexture;
+  PImage squidTexture;
   int lastPulse;
 
   void setup() {
     fishDefault = new Mesh(17);
+    blob = new Mesh(8);
+    blobPulse = new Mesh(8);
     fishUpperFin = new Mesh(17);
     fishLowerFin = new Mesh(17);
     fishTail = new Mesh(17);
     fishMouth = new Mesh(17);
+
+    blob
+      .v(1, 0)
+      .v(0, -0.4)
+      .v(-0.5, -0.5)
+      .v(-1, -0.5)
+      .v(-0.9, -0.3)
+      .v(-0.7, 0)
+      .v(-0.4, 0.6)
+      .v(0.8, 0.8);
+
+    blobPulse
+      .v(-0.5, -0.2)
+      .v(-0.3, 0.3)
+      .v(-0.3, 0.3)
+      .v(0.1, 0.5)
+      .v(0.1, 0.5)
+      .v(0.3, 0.2)
+      .v(-0.2, 0.2)
+      .v(-0.2, 0.1);
+
     fishDefault
       .v(1,    0.1)    //Lower lip
       .v(0.96, 0)      //Mouth
@@ -259,17 +329,11 @@ class Fishes implements Effect {
     squid = new Mesh(50);
     squid
       .v(1,    0) 
-
       .v(0.98, -0.02)
-
       .v(0.96, -0.015)
-
       .v(0.6,  -0.515)
-
       .v(0.15, -0.2)
-
       .v(0,    -0.8)
-
       .v(0,    -0.8)
       .v(0,    -0.8)
       .v(0,    -0.8)
@@ -326,17 +390,83 @@ class Fishes implements Effect {
       .v(0.98, 0.02)
       ;
 
+    squidPulse = new Mesh(50);
+    squidPulse
+      .v(0,    0) 
+      .v(0,    0) 
+      .v(0,    0) 
+      .v(0,    -0.3) 
+      .v(0,    0) 
+
+      .v(0.3,    0.1) 
+      .v(0.3,    0.1) 
+      .v(0.3,    0.1) 
+      .v(0.3,    0.1) 
+      .v(0.3,    0.1) 
+
+      .v(0,    0) 
+
+      .v(0,    0) 
+      .v(0.2,  0)
+      .v(0.2,  0)
+      .v(0.2,  0)
+      .v(0,    0) 
+
+      .v(0.2,  0)
+      .v(0.2,  0)
+      .v(0.2,  0)
+      .v(0,    0) 
+      .v(0.2,  0)
+      .v(0.2,  0)
+      .v(0.2,  0)
+      .v(0,    0) 
+
+      .v(0.2,  0)
+      .v(0.2,  0)
+      .v(0.2,  0)
+      .v(0,    0) 
+
+      .v(0.2,  0)
+      .v(0.2,  0)
+      .v(0.2,  0)
+      .v(0,    0) 
+      .v(0.2,  0)
+      .v(0.2,  0)
+      .v(0.2,  0)
+      .v(0,    0) 
+
+      .v(0.2,  0)
+      .v(0.2,  0)
+      .v(0.2,  0)
+      .v(0,    0) 
+      .v(0, 0)
+
+      .v(0.3, 0.1)
+      .v(0.3, 0.1)
+      .v(0.3, 0.1)
+      .v(0.3, 0.1)
+      .v(0.3, 0.1)
+
+      .v(0,    0)
+      .v(0,  0.3)
+      .v(0,    0)
+      .v(0,    0);
+
 
     lastPulse = 0;
     f = new Fish();
     f.phase = 1;
     f.strokeColor = new Color(0,94,128);
 
+    this.blobTexture = loadImage("renderclouds.jpg");
     this.fishTexture = loadImage("ananas.jpg");
     this.seastarTexture = loadImage("seastar.jpg");
+    this.squidTexture = loadImage("mustekala1.jpg");
 
+    f.blobTexture = this.blobTexture;
     f.fishTexture = this.fishTexture;
     f.seastarTexture = this.seastarTexture;
+    f.squidTexture = this.squidTexture;
 
     f.x = 10;
     f.y = 5;
@@ -362,6 +492,8 @@ class Fishes implements Effect {
     if (lastSec == 0)
       delta = 0;
     f.step(secs, delta);
+    //f.mode=-1;
+    f.mode=(0.5 + 0.5* sin(secs/10)) * 3.0 - 1.0;
     lastSec = secs;
 
     f.draw();
