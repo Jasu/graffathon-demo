@@ -6,28 +6,30 @@ class Kupla {
   float mod;
   float lift;
   Kupla(){
-    x = random(width);
-    y = random(height); 
-    size = random(70); 
-    mod = random(7);
-    lift = height/(random(30)+200);
+    y = height + 50+ random(height) * 2; 
+    size = random(width / 3); 
+    x = random(width) - size / 2;
+    mod = random(width / 300);
+    lift = height/(random(height / 35)+200);
   }
+
   void draw(float secs) {
-        tint(255, 127);  
-        texture(texture);
-        x = x + sin(secs * 0.5)*mod;
-        y = y - lift;
-        image(texture, x, y, size, size);   
+    tint(255, 127);  
+    texture(texture);
+    x = x + sin(secs * 0.5)*mod;
+    y = y - lift * secs;
+    image(texture, x, y, size, size);   
   }  
 }
  
  class Kuplat {
   public PImage texture; 
   Kupla k[]; 
+
   void setup() {
-    k = new Kupla[20];
-    this.texture = loadImage("kupla.png");    
-    for (int i = 0; i < 20; i++){
+    k = new Kupla[200];
+    this.texture = loadImage("kupla.png");
+    for (int i = 0; i < k.length; i++){
       k[i] = new Kupla();
       k[i].texture = this.texture;
     }
@@ -36,15 +38,14 @@ class Kupla {
   void draw(float secs) {
     strokeWeight(1);
     resetMatrix();    
-    for (int i = 0; i < 20; i++){
-        k[i].draw(secs);
-        if (k[i].y < -20){
-          k[i] = new Kupla();
-          k[i].texture = this.texture;
-          k[i].y = height;
+    for (int i = 0; i < k.length; i++){
+        if (k[i].y > -20) {
+          k[i].draw(secs);
+          //k[i] = null;
+          //k[i] = new Kupla();
+          //k[i].texture = this.texture;
+          //k[i].y = height;
         }        
     }
-    tint(255, 255);
-  
   }
 }

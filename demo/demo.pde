@@ -43,20 +43,20 @@ void setup() {
   size(CANVAS_WIDTH, CANVAS_HEIGHT, P2D);
   frameRate(60);
 
-  effects = new Effect[6];
+  effects = new Effect[5];
   effects[0] = new Aquarium();
   effects[1] = new Effect2();
   effects[2] = new Verkko();
-  effects[3] = new Fishes();
-  effects[4] = new Background();
-  effects[5] = new Ruusu();
+  //effects[3] = new Fishes();
+  effects[3] = new Background();
+  effects[4] = new Ruusu();
   //effects[6] = new Puu();
 
   for (Effect effect : effects) {
     effect.setup();
   }
   minim = new Minim(this);
-  song = minim.loadFile("../processing/common/tekno_127bpm.mp3");
+  song = minim.loadFile("demobiisi2.wav");
   song.play();
 }
 
@@ -65,7 +65,7 @@ void setup() {
  * Processing's drawing method
  */
 void draw() {
-  float secs = millis() / 1000.0;
+  float secs = song.position() / 1000.0;
   clear();
   effects[currentEffect].draw(secs);
 }

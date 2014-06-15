@@ -4,10 +4,16 @@ class Background implements Effect {
   int lineHeight;
   int numSplits; 
 
+  float scaleX, scaleY;
+  float multR, multG, multB;
+
   void setup() {
     this.numLines = 34;
     this.lineHeight = ceil((float)height / (float)this.numLines);
     this.numSplits = 2;
+
+    scaleX = 1;
+    scaleY = 1;
 
     this.colors = new Color[6];
     this.colors[0] = new Color(0, 70, 134);
@@ -23,11 +29,11 @@ class Background implements Effect {
     int[] result = new int[numSins];
 
     int x = 50;
-    int deltaX = width / (numSins + 1);
+    int deltaX = ceil(width / (numSins + 1) * scaleX);
 
     for (int i = 0; i < numSins; ++i) {
       float modifier = i % 2 - 1 * sin(secs + i % 4);
-      result[i] = ceil(sin((float)line * 0.12 * (i % 3 + 1) + i + (1.0 + secs / 3.0)) * width / 20.0 * modifier + x);
+      result[i] = ceil(sin((float)line * 0.12 * (i % 3 + 1) + i + (1.0 + secs / 3.0)) * width / 20.0 * scaleX * modifier + x);
       x += deltaX;
     };
     result = sort(result);
@@ -54,7 +60,7 @@ class Background implements Effect {
           previousX2 = previousSplitPoints[j];
         }
 
-        this.colors[colorIndex % this.colors.length].setFill();
+        this.colors[colorIndex % this.colors.length].setFill(multR, multG, multB);
 
         beginShape();
           vertex(previousX1, y);

@@ -20,7 +20,7 @@ class Fish {
   public float tail;
   public float mouth;
 
-  public float mode;
+  public float mode = -1;
 
   public float energy;
 
@@ -47,8 +47,8 @@ class Fish {
   public float phase;
 
   public void step(float sec, float secdiff) {
-    //x += speedX * secdiff;
-    //y += speedY * secdiff; 
+    x += speedX * secdiff;
+    y += speedY * secdiff; 
 
     speedX *= 1 - 2.995 * secdiff;
     speedY *= 1 - 2.995 * secdiff;
@@ -130,9 +130,12 @@ class Fish {
     pushMatrix();
 
     translate(x, y);
+
     rotate(atan2(initSpeedX, initSpeedY));
 
     Mesh m = meshSet.getMesh();
+
+    scale(height / 3);
 
     if (blobness > 0)
       m.renderWithImage(blobTexture, 255);
@@ -176,8 +179,9 @@ class Fish {
   }
 }
 
-class Fishes implements Effect {
+class EvolveBlob implements Effect {
   Fish f;
+  boolean moveout; 
   PImage blobTexture;
   PImage fishTexture;
   PImage seastarTexture;
@@ -468,32 +472,44 @@ class Fishes implements Effect {
     f.seastarTexture = this.seastarTexture;
     f.squidTexture = this.squidTexture;
 
-    f.x = 10;
-    f.y = 5;
+    f.x = -width;
+    f.y = -height;
+    //f.x = width / 2;
+    //f.x = height / 2;
     f.speedX = 0;
     f.speedY = 0;
-    f.initSpeedX = 0;
-    f.initSpeedY = 0;
+    f.initSpeedX = width / 3;
+    f.initSpeedY = height / 3;
     lastSec = 0;
   }
 
   float lastSec;
 
-  void draw(float secs) {
-    if (secs > lastPulse) {
-      lastPulse = ceil(secs);
-      f.pulse();
+  void pulse() {
+    if (moveout) {
+    f.initSpeedX = 100;
+    f.initSpeedY = 100;
     }
+    else {
+    f.initSpeedX = width / 2 - f.x;
+    f.initSpeedY = height / 2 - f.y;
+    float l = 400 / sqrt(f.initSpeedX * f.initSpeedX + f.initSpeedY * f.initSpeedY);
+    f.initSpeedX *= l;
+    f.initSpeedY *= l;
+    }
+    f.pulse();
+  }
 
+  void draw(float secs) {
     resetMatrix();
-    scale(60);
+
 
     float delta = secs - lastSec;
     if (lastSec == 0)
       delta = 0;
     f.step(secs, delta);
     //f.mode=-1;
-    f.mode=(0.5 + 0.5* sin(secs/10)) * 3.0 - 1.0;
+    //f.mode=(0.5 + 0.5* sin(secs/10)) * 3.0 - 1.0;
     lastSec = secs;
 
     f.draw();

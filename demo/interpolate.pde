@@ -6,7 +6,6 @@ float cardinal(float prev, float cur, float next, float nextnext, float t, float
   float m0 = (next - prev)  * (1.0 - c) / 2.0;
   float m1 = (nextnext - cur)  * (1.0 - c) / 2.0;
 
-  println("Cur " + cur + " m0 " + m0 + " next" + next + " m1 " + m1);
 
   result += (2*t3 - 3*t2 + 1) * cur;
   result += (t3 - 2*t2 + t) * m0;
@@ -53,7 +52,6 @@ Mesh interpolate(Mesh input, int num, float c) {
       t,
       c);
 
-    println ("X " + result.x[i] + " Y " + result.y[i]);
     t += tDelta;
   }
 

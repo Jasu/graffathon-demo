@@ -22,6 +22,15 @@ class Color {
     fill((float)this.r, (float)this.g, (float)this.b, (float)this.a);
   }
 
+  public void setFill(float multR, float multG, float multB) {
+    fill(
+      multR * (float)this.r, 
+      multG * (float)this.g,
+      multB * (float)this.b,
+      (float)this.a
+    );
+  }
+
   public void setStroke() {
     stroke((float)this.r, (float)this.g, (float)this.b, (float)this.a);
   }
