@@ -5,7 +5,8 @@ class Kupla {
   float size;
   float mod;
   float lift;
-  Kupla(){
+
+  Kupla() {
     y = height + 50+ random(height) * 2; 
     size = random(width / 3); 
     x = random(width) - size / 2;

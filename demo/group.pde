@@ -30,6 +30,7 @@ class Group {
     }
 
     texture(texture);
+    tint(255, 255);
     image(texture, x, y, 512, 256);   
   }  
 }

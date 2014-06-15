@@ -49,6 +49,8 @@ void setup() {
   minim = new Minim(this);
   song = minim.loadFile("demobiisi2.wav");
   song.play();
+  textSize(32);
+  textSize(40);
 }
 
 

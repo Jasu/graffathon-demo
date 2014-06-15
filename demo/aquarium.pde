@@ -8,10 +8,11 @@ class Aquarium implements Effect {
   Demoni demoni;
   float dir = -1;
   Kuplat kuplat;
+  JatkuvatKuplat jkuplat;
 
   float treeMultiplier = 0;
   float treeColor = 0;
-  float puuSvengi = 1;
+  float puuSvengi = 0;
   float treeAlpha = 0;
 
   int mode;
@@ -33,6 +34,8 @@ class Aquarium implements Effect {
     //fishes.setup();
     puu.setup();
     kuplat = new Kuplat();
+    jkuplat = new JatkuvatKuplat();
+    jkuplat.setup();
   }
 
   public float lastSecs = 0;
@@ -52,8 +55,7 @@ class Aquarium implements Effect {
 
     float delta = secs - lastSecs;
     if (lastSecs == 0.0) {
-      delta = 0;
-    }
+      delta = 0; }
     lastSecs = secs;
 
     if (secs > 5 && mode < 1) {
@@ -91,6 +93,7 @@ class Aquarium implements Effect {
 
     if (secs > 141 && mode < 10) {
       mode = 10;
+      jkuplat.stop();
     }
 
     switch (mode) {
@@ -159,8 +162,8 @@ class Aquarium implements Effect {
         if (evolveBlob.f.mode > 0)
           evolveBlob.f.mode = 0;
 
-        background.multR += 0.01 * delta;
-        if (background.multR > 1)
+        background.multG += 0.01 * delta;
+        if (background.multG > 1)
           background.multG = 1;
 
         background.multB += 0.01 * delta;
@@ -174,8 +177,8 @@ class Aquarium implements Effect {
         if (evolveBlob.f.mode > 1)
           evolveBlob.f.mode = 1;
 
-        background.multR += 0.01 * delta;
-        if (background.multR > 1)
+        background.multG += 0.01 * delta;
+        if (background.multG > 1)
           background.multG = 1;
 
         background.multB += 0.01 * delta;
@@ -189,8 +192,8 @@ class Aquarium implements Effect {
         if (evolveBlob.f.mode > 2)
           evolveBlob.f.mode = 2;
 
-        background.multR += 0.01 * delta;
-        if (background.multR > 1)
+        background.multG += 0.01 * delta;
+        if (background.multG > 1)
           background.multG = 1;
 
         background.multB += 0.01 * delta;
@@ -242,7 +245,7 @@ class Aquarium implements Effect {
     if (treeMultiplier > 0.01)
     {
       float r = height/12;
-      r += cos(TWO_PI * secs  / (8.0 / 6.0)) * 2 * puuSvengi;
+      r += cos(TWO_PI * secs  / (8.0 / 6.0)) * 2 * puuSvengi * 7;
       r *= treeMultiplier;
       
       float x = width/2-(width/4)+(width/8);
@@ -251,21 +254,21 @@ class Aquarium implements Effect {
 
       
       r = height/13;
-      r += cos(TWO_PI * secs / (8.0 / 6.0)) * 2 * puuSvengi;
+      r += cos(TWO_PI * secs / (8.0 / 6.0)) * 2 * puuSvengi * 7;
       r *= treeMultiplier;
       x = width/2+(width/4);
       y = height/15;     
       puu.draw(secs, x, y, r, 0.5, 0.2, -0.4, treeColor, treeAlpha);    
 
       r = height/15;
-      r += cos(TWO_PI * secs / (8.0 / 6.0)) * 2 * puuSvengi;
+      r += cos(TWO_PI * secs / (8.0 / 6.0)) * 2 * puuSvengi * 7;
       r *= treeMultiplier;
       x = width/(width/4);
       y = 0-1.5*r;     
       puu.draw(secs, x, y, r, 0.5, 0.4, -0.2, treeColor * 0.90, treeAlpha); 
 
       r = height/17;
-      r += cos(TWO_PI * secs / (8.0 / 6.0)) * 2 * puuSvengi;
+      r += cos(TWO_PI * secs / (8.0 / 6.0)) * 2 * puuSvengi * 7;
       r *= treeMultiplier;
       x = width/2;
       y = 0-2*r;
@@ -279,11 +282,16 @@ class Aquarium implements Effect {
       demoni.draw(delta);
     }
 
+
     if (mode == 3 || mode == 4)
       ruusu.draw(secs);
 
     if (mode >= 5)
       evolveBlob.draw(secs);
+
+    if (secs > 84) {
+      jkuplat.draw(secs);
+    }
 
     if (mode == 9)
       greets.draw(delta);
